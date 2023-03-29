@@ -16,8 +16,19 @@
 
 - Later Versions of this project may include a basic .csv file for far faster database setup
 
+-------------------------------------------
+## Config
+- A config.properties file must be added to src/main/java/resources
+- It needs the following information:
 
+  - db.address=
+  - db.port=
+  - db.name=
+  - db.user=
+  - db.password=
+  - steamAPI.key= Steam_api_key
 
+  
 
 -------------------------------------------
 ## Steam Web API Reference
