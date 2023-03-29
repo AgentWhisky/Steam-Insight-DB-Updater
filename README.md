@@ -53,4 +53,9 @@
 | :-------- | :------- |:-----------------------------------------|
 | `appid`      | `string` | **Required** -  appid to get details for |
 
+---------------------------
+## Example
+
+![alt text](src/main/resources/run1.png?raw=true)
+
 
