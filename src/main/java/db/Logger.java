@@ -1,11 +1,15 @@
 package db;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class - Used to handle logging to a log file and to the default console or a UI JTextField console
+ */
 public class Logger {
     // Log Directory
     private static final String FILE_DIR = "logs/";
@@ -23,10 +27,25 @@ public class Logger {
     private FileWriter logfile; // Open Logfile
     private boolean open;
 
+    private JTextArea console;
+
+    /**
+     * Constructor - Create A New Logger Object
+     */
     public Logger() {
         createLogDir(); // Create Log Directory if Necessary
         openLogFile(); // Open New Logfile
+    }
 
+    /**
+     * Constructor - Create a New Logger Object with an existing console (JTextArea)
+     * @param console is the existing console to write to
+     */
+    public Logger(JTextArea console) {
+        this.console = console;
+
+        createLogDir(); // Create Log Directory if Necessary
+        openLogFile(); // Open New Logfile
     }
 
     /**
@@ -58,21 +77,43 @@ public class Logger {
         String timeStamp = getTimeStamp();
         String logString = String.format("%s: {%s} %s\n", timeStamp, logTypeStr, data);
 
-        // Print to Console
-        System.out.print(logString);
+        _log(logString);
+    }
+
+    /**
+     * Method to add a break in the log
+     */
+    public void logBreak() {
+        String logString = "=".repeat(50) + "\n";
+
+        _log(logString);
+    }
+
+
+    // *** Private Methods ***
+    /**
+     * Method to log given string to console and logfile
+     * @param s is the given string
+     */
+    private void _log(String s) {
+        // Print to UI Console
+        if(hasConsole()) {
+            SwingUtilities.invokeLater(() -> console.append(s));
+        }
+        // Print to Default Console
+        else {
+            System.out.print(s);
+        }
 
         // Write to Log File
         try {
-            logfile.write(logString);
-            logfile.flush();
+            logfile.write(s);
+            logfile.flush(); // Flush Buffer to File Immediately
         }
         catch (IOException e) {
             System.err.println("Failed to Write to Log File: " + e.getMessage());
         }
     }
-
-
-    // *** Private Methods ***
 
     /**
      * Method to open a new logfile
@@ -126,5 +167,13 @@ public class Logger {
         // Get TimeStamp
         LocalDateTime time = LocalDateTime.now();
         return time.format(DateTimeFormatter.ofPattern(timeFormat));
+    }
+
+    /**
+     * Method to return if logger was given a UI console
+     * @return if UI console exists
+     */
+    private boolean hasConsole() {
+        return console != null;
     }
 }

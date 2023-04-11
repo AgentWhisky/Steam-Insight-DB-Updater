@@ -1,61 +1,41 @@
-# SteamDB-Updater
+
+# SteamDB Updater
+
+Used to Initialize and keep up-to-date a Steam App Database for use in other Steam API Projects
 
 
-## Purpose
+## Features
 
-- Part 1 of 2 - Steam WebApp Project
-- This Updater Is Built To Initialize and Keep Up-To-Date, A Table in a Database
+- Simple To Understand GUI
+- Simplified Connection Process
+- Displays Current Status and Update Info
+- Run Database Updates every 1-24 hours
 
-## Functions
 
-- Create Table 'AppInfo' In Connected Database if necessary
-- Add an Up-To-Date List of all Steam Apps from Its API to the Database
-- Update all Out-Of-Date apps in the Database to ensure valid data
-  - WARNING: Due To How The Steam Web API is set up, in order to know any information other than an app's appid and name, a separate call for EACH appid mus be made. This is not only incredibly inefficient but also time-consuming as only 200 Calls per 5 minutes can be made. No better method has been found.
-  - Once the Database is Up-To-Date the first time, subsequent updates should be simple and quick
+## Steam Web API
 
-- Later Versions of this project may include a basic .csv file for far faster database setup
-
--------------------------------------------
-## Config
-- A config.properties file must be added to src/main/java/resources
-- It needs the following information:
-
-  - db.address=
-  - db.port=
-  - db.name=
-  - db.user=
-  - db.password=
-  - steamAPI.key= Steam_api_key
-
-  
-
--------------------------------------------
-## Steam Web API Reference
-
-#### Get Steam App List (v2)
+#### Get Steam App List
 
 ```http
-  GET https://api.steampowered.com/ISteamApps/GetAppList/v2/?key=<STEAM_API_KEY>
+  GET https://api.steampowered.com/ISteamApps/GetAppList/v2/
 ```
 
-| Parameter | Type     | Description                              |
-| :-------- | :------- |:-----------------------------------------|
-| `STEAM_API_KEY` | `string` | **Required** -  An API Supplied by Steam |
-
-#### Get App Details
+#### Get App Info For appid
 
 ```http
   GET https://store.steampowered.com/api/appdetails?appids=<appid>
 ```
 
-| Parameter | Type     | Description                              |
-| :-------- | :------- |:-----------------------------------------|
-| `appid`      | `string` | **Required** -  appid to get details for |
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `appid`      | `string` | **Required**. appid of info to fetch |
 
----------------------------
-## Example
 
-![alt text](src/main/resources/run1.png?raw=true)
+
+## Updater In Action
+
+![alt text](readme/non-con.png?raw=true)
+
+![alt text](readme/update-finished.png?raw=true)
 
 
