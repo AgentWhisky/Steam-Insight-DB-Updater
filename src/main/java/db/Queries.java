@@ -10,7 +10,9 @@ public class Queries {
                 appid INT PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 last_update DATE,
-                type VARCHAR(16)
+                type VARCHAR(16),
+                header_image varchar(1024),
+                background varchar(1024)
                 )
                 """;
 
@@ -24,7 +26,7 @@ public class Queries {
     public static final String getAppidsToUpdate = """
                 SELECT appid
                 FROM AppInfo
-                WHERE last_update IS NULL AND (type <> 'invalid' OR type IS NULL);
+                WHERE (type IS NULL) OR (last_update IS NULL)
                 """;
 
     // MySQL Query to insert a new app into the AppInfo Table {Prepared Statement}
@@ -34,7 +36,7 @@ public class Queries {
     public static final String updateApp = """
             UPDATE AppInfo
             SET
-                last_update=CURRENT_TIMESTAMP(), type=?
+                last_update=CURRENT_TIMESTAMP(), type=?, header_image=?, background=?
             WHERE appid=?
             """;
 }

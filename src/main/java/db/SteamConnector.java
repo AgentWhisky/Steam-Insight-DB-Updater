@@ -87,21 +87,27 @@ public class SteamConnector {
             JSONObject parent = json.getJSONObject("" + appid);
 
             String type;
+            String header_image;
+            String background;
 
             // Set as Invalid
             if(!parent.getBoolean("success")) {
                 type = INVALID;
+                header_image = "";
+                background = "";
             }
             // Handle Real Result
             else {
                 JSONObject details = parent.getJSONObject("data");
                 type = details.getString("type");
+                header_image = details.getString("header_image");
+                background = details.getString("background");
             }
-            return new AppEntry(appid, type);
+            return new AppEntry(appid, type, header_image, background);
         }
         // Return Invalid on Extraction Failure
         catch (JSONException e) {
-            return new AppEntry(appid, INVALID);
+            return new AppEntry(appid, INVALID, "", "");
         }
     }
 

@@ -352,7 +352,9 @@ public class DBConnector implements ConnectorInterface {
         try(PreparedStatement pStmt = conn.prepareStatement(updateApp)) {
             // Set SQL Items and Execute
             pStmt.setString(1, entry.type());
-            pStmt.setInt(2, entry.appid());
+            pStmt.setString(2, entry.header_image());
+            pStmt.setString(3, entry.background());
+            pStmt.setInt(4, entry.appid());
             pStmt.executeUpdate();
 
             // Log Valid or Invalid

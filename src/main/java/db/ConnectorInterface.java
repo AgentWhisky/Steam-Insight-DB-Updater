@@ -16,7 +16,7 @@ public interface ConnectorInterface {
     record App(int appid, String name) {} // Used for adding initial entry
 
     // Record for Storing App Update Data
-    record AppEntry(int appid, String type) { // Used for updating type/time of entry
+    record AppEntry(int appid, String type, String header_image, String background) { // Used for updating type/time of entry
         public boolean isValid() {
             return !type.equals("invalid");
         }
