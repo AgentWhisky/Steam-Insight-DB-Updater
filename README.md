@@ -1,5 +1,5 @@
 
-# SteamDB Updater
+# Steam Insight DB Updater
 
 Used to Initialize and keep up-to-date a Steam App Database for use in other Steam API Projects
 
